@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+{% block title %}Eshop | Signup {% endblock%}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="font-weight-light">회원가입 | 빌려~ </h1>
+            <hr>
+            <form action="/signup" method="POST">
+                {% if error %}
+                <small style="color:red"> {{ error.field_error }} </small>
+                <small style="color:green"> {{ error.success }} </small>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input value="{{ userData.name }}" name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="홍길동">
+                    {% if error %}
+                    <small style="color:red"> {{ error.name_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일 주소</label>
+                    <input value="{{ userData.email }}" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="bilyeo@likelion.org">
+                    {% if error %}
+                    <small style="color:red"> {{ error.emailExits_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="phone">전화 번호</label>
+                    <input value="{{ userData.phone }}" name="phone" type="number" class="form-control" id="phone" placeholder="010-1004-1004">
+                    {% if error %}
+                    <small style="color:red"> {{ error.phoneNumber_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="비밀번호">
+                    {% if error %}
+                    <small style="color:red">{{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">비밀번호 확인</label>
+                    <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="비밀번호 확인">
+                    {% if error %}
+                    <small style="color:red"> {{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">회원가입</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
